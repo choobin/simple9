@@ -67,11 +67,11 @@ static const struct {
 };
 
 #if defined NDEBUG
-#define IO(operation, value, size, n, fp) do {   \
+#define IO(operation, value, size, n, fp) do {      \
         f##operation(value, size, n, fp);           \
     } while(0)
 #else
-#define IO(operation, value, size, n, fp) do {           \
+#define IO(operation, value, size, n, fp) do {              \
         size_t nitems = f##operation(value, size, n, fp);   \
         assert(nitems == n);                                \
     } while(0)

@@ -67,19 +67,19 @@ static const struct {
 };
 
 #if defined NDEBUG
-#define ___IO(operation, value, size, n, fp) do {   \
+#define IO(operation, value, size, n, fp) do {   \
         f##operation(value, size, n, fp);           \
     } while(0)
 #else
-#define ___IO(operation, value, size, n, fp) do {           \
+#define IO(operation, value, size, n, fp) do {           \
         size_t nitems = f##operation(value, size, n, fp);   \
         assert(nitems == n);                                \
     } while(0)
 #endif
 
-#define Fread(value, size, n, fp) ___IO(read, value, size, n, fp)
+#define Fread(value, size, n, fp) IO(read, value, size, n, fp)
 
-#define Fwrite(value, size, n, fp) ___IO(write, value, size, n, fp)
+#define Fwrite(value, size, n, fp) IO(write, value, size, n, fp)
 
 static size_t vbyte_encode(size_t value, FILE *fp)
 {

@@ -37,18 +37,17 @@ official policies, either expressed or implied, of Christopher Hoobin.
 #include <stdio.h>
 
 /* Performs a simple9 encoding of n elements from array. The result is
- * written to the file descriptor.
+ * written to the file stream.
  *
- * Returns the number of bytes written to the file descriptor. */
+ * Returns the number of bytes written to the file stream. */
 size_t simple9_encode(uint32_t *array, size_t n, FILE *fp);
 
-/* Allocates and array of n elements and decodes a simple9
- * encoding. The encoding is read from the file descriptor.
+/* Decodes a simple9 encoding read from a file stream.
  *
  * Memory for *array is allocated inside the function and n is also
  * set. The caller is responsible for freeing memory.
  *
- * Returns the number of bytes read from the file descriptor. */
+ * Returns the number of bytes read from the file stream. */
 size_t simple9_decode(uint32_t **array, size_t *n, FILE *fp);
 
 size_t simple9_decode_unrolled(uint32_t **array, size_t *n, FILE *fp);

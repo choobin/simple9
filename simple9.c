@@ -66,21 +66,6 @@ static const struct {
     { 1, 28, 0},
 };
 
-#if defined NDEBUG
-#define IO(operation, value, size, n, fp) do {      \
-        f##operation(value, size, n, fp);           \
-    } while(0)
-#else
-#define IO(operation, value, size, n, fp) do {              \
-        size_t nitems = f##operation(value, size, n, fp);   \
-        assert(nitems == n);                                \
-    } while(0)
-#endif
-
-#define Fread(value, size, n, fp) IO(read, value, size, n, fp)
-
-#define Fwrite(value, size, n, fp) IO(write, value, size, n, fp)
-
 static size_t vbyte_encode(size_t value, FILE *fp)
 {
     size_t nbytes = 0;
@@ -89,7 +74,7 @@ static size_t vbyte_encode(size_t value, FILE *fp)
     while (value >= 0x80) {
         nibble = (value & 0x7F) | 0x80;
 
-        Fwrite(&nibble, sizeof nibble, 1, fp);
+        fwrite(&nibble, sizeof nibble, 1, fp);
         nbytes++;
 
         value >>= 7;
@@ -97,7 +82,7 @@ static size_t vbyte_encode(size_t value, FILE *fp)
 
     nibble = value & 0x7F;
 
-    Fwrite(&nibble, sizeof nibble, 1, fp);
+    fwrite(&nibble, sizeof nibble, 1, fp);
     nbytes++;
 
     return nbytes;
@@ -112,7 +97,7 @@ static size_t vbyte_decode(size_t *value, FILE *fp)
     *value = 0;
 
     while (1) {
-        Fread(&nibble, sizeof nibble, 1, fp);
+        fread(&nibble, sizeof nibble, 1, fp);
         nbytes++;
 
         *value |= ((nibble & 0x7F) << shift);
@@ -168,7 +153,7 @@ size_t simple9_encode(uint32_t *array, size_t n, FILE *fp)
             }
 
             if (nitems == selectors[selector].nitems || index + nitems == n) {
-                Fwrite(&data, sizeof data, 1, fp);
+                fwrite(&data, sizeof data, 1, fp);
 
                 nbytes += sizeof data;
 
@@ -207,7 +192,7 @@ size_t simple9_decode(uint32_t **array, size_t *n, FILE *fp)
     nitems = 0;
 
     while (nitems < *n) {
-        Fread(&data, sizeof data, 1, fp);
+        fread(&data, sizeof data, 1, fp);
 
         nbytes += sizeof data;
 
@@ -260,7 +245,7 @@ size_t simple9_decode_unrolled(uint32_t **array, size_t *n, FILE *fp)
     nitems = 0;
 
     while (nitems < *n) {
-        Fread(&data, sizeof data, 1, fp);
+        fread(&data, sizeof data, 1, fp);
 
         nbytes += sizeof data;
 

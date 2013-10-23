@@ -1,14 +1,4 @@
 simple9, a word-aligned integer compression algorithm as described in
 
-@article{
-author = {
-Vo Ngoc Anh and
-Alistair Moffat
-},
-title   = {Inverted Index Compression using Word-Aligned Binary Codes},
-journal = {Information Retrieval},
-volume  = {8},
-number  = {1},
-pages   = {151--166},
-year    = {2005},
-}
+Vo Ngoc Anh and Alistair Moffat. Inverted index compression using
+word-aligned binary codes. Information Retrieval, 8(1):151–166, 2005.

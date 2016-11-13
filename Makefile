@@ -12,7 +12,7 @@ test-simple9: test-simple9.o libsimple9.a
 	$(CC) $(DEBUG) -o $@ $^
 
 libsimple9.a: simple9.o
-	$(AR) cr $@ $^k
+	$(AR) cr $@ $^
 
 %.o: %.c
 	$(CC) $(DEBUG) $(CFLAGS) $(CPPFLAGS) -c $<

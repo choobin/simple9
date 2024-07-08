@@ -113,7 +113,7 @@ static size_t vbyte_decode(size_t *value, FILE *fp)
 
 size_t simple9_encode(uint32_t *array, size_t n, FILE *fp)
 {
-    uint32_t index;
+    size_t index;
     uint32_t selector;
     uint32_t data;
     uint32_t shift;
